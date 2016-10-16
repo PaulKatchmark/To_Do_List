@@ -57,8 +57,83 @@ router.post('/', function(req, res){
   });
 });
 
+router.put('/:id', function(req, res) {
+  var id = req.params.id;
+  var task_status = req.body.task_status;
 
+  pool.connect(function(err, client, done){
+    try {
+      if (err) {
+        console.log('Error connecting the DB', err);
+        res.sendStatus(500);
+        return;
+      }
+      client.query('UPDATE tasks SET task_status = "finished" VALUES ($1) WHERE id =$1;',
+      [id, task_status],
+      function(err, result) {
+        if (err) {
+          console.log('Error querying database', err);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+    } finally {
+      done();
+    }
+  });
+});
 
+// router.put('/:id', function(req, res) {
+//   var id = req.params.id;
+//   var task_status = req.body.task_status;
+//
+//   pool.connect(function(err, client, done){
+//     try {
+//       if (err) {
+//         console.log('Error connecting the DB', err);
+//         res.sendStatus(500);
+//         return;
+//       }
+//       client.query('UPDATE tasks SET task_status = "workingOn" VALUES ($1) WHERE id =$1;',
+//       [id, task_status],
+//       function(err, result) {
+//         if (err) {
+//           console.log('Error querying database', err);
+//           res.sendStatus(500);
+//         } else {
+//           res.send(result.rows);
+//         }
+//       });
+//     } finally {
+//       done();
+//     }
+//   });
+// });
+router.delete('/:id', function(req, res){
+  var id = req.params.id;
+
+  pool.connect(function(err, client, done){
+    try {
+      if (err) {
+        console.log('Error connecting to DB', err);
+        res.sendStatus(500);
+        return;
+      }
+
+      client.query('DELETE FROM tasks WHERE id=$1;', [id], function(err){
+        if (err) {
+          console.log('Error querying the DB', err);
+          res.sendStatus(500);
+          return;
+        }
+        res.sendStatus(204);
+      });
+    } finally {
+      done();
+    }
+  });
+});
 
 
 module.exports = router;
