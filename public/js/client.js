@@ -1,7 +1,7 @@
 $(function() {
 getTasks();
 
-
+$('#enterTask').on('submit', addTask);
 
 });
 
@@ -35,4 +35,19 @@ function displayTasks(response) {
     $li.append($form);
     $list.append($li);
   });
+}
+
+function addTask(event) {
+  event.preventDefault();
+  // title=someTitle&author=someAuthor&published=today
+  var taskData = $(this).serialize();
+
+  $.ajax({
+    type: 'POST',
+    url: '/todo',
+    data: taskData,
+    success: getTasks
+  });
+
+  $(this).find('input').val('');
 }
