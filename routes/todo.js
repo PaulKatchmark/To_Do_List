@@ -54,7 +54,6 @@ router.post('/', function(req, res) {
 
 router.put('/:id', function(req, res) {
     var id = req.params.id;
-    var task_status = req.body.task_status;
     pool.connect(function(err, client, done) {
         try {
             if (err) {

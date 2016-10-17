@@ -18,6 +18,7 @@ input {
 }
 button {
   display: inline-block;
+  background-color: grey;
 }
 body{
   text-align: center;
