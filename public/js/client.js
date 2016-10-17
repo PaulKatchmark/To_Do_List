@@ -1,10 +1,10 @@
 $(function() {
+
     getTasks();
 
     $('#enterTask').on('submit', addTask);
     $('#toDoList').on('click', '.delete', deleteTask);
     $("#toDoList").on("click", '#complete', updateTask);
-
 });
 
 function getTasks() {
@@ -47,16 +47,13 @@ function displayTasks(response) {
 
 function addTask(event) {
     event.preventDefault();
-    // title=someTitle&author=someAuthor&published=today
     var taskData = $(this).serialize();
-
     $.ajax({
         type: 'POST',
         url: '/todo',
         data: taskData,
         success: getTasks
     });
-
     $(this).find('input').val('');
 }
 
@@ -78,16 +75,8 @@ function updateTask() {
     var $checkbox = $(this);
     var $form = $checkbox.closest('form');
     var data = $checkbox.data('id');
-    // $checkbox.prop('unchecked', false);
     var boxToggle = $checkbox.prop('checked');
 
-    // if (boxToggle == true) {
-    //     $('p[value=' + data + ']').addClass('finished');
-    // } else {
-    //     $('p[value=' + data + ']').removeClass('finished');
-    // }
-
-    console.log(boxToggle);
     $.ajax({
         type: 'PUT',
         url: '/todo/' + data,

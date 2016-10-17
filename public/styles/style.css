@@ -4,9 +4,42 @@
 
 p {
   display: inline-block;
-
+  font-family: 'Bungee Inline', cursive;
+  font-family: 'Indie Flower', cursive;
+  font-size: 22px;
 }
-
+label {
+  font-size: 28px;
+}
+input {
+  background-color: grey;
+  color: white;
+  margin: 5px 20px 5px 20px;
+}
 button {
   display: inline-block;
+}
+body{
+  text-align: center;
+}
+html {
+  background-image: url('https://hd.unsplash.com/photo-1472289065668-ce650ac443d2');
+  background-size: 1500px
+}
+h1 {
+  align-content: center;
+  font-family: 'Bungee Inline', cursive;
+  font-size: 45px;
+}
+#enterTask{
+  align-content: center;
+}
+#toDoList{
+  align-content: center;
+}
+button {
+  padding: 6px;
+  border-radius: 10px;
+  color: white;
+  margin: 5px 20px 5px 20px;
 }

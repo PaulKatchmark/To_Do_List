@@ -1,10 +1,8 @@
 var router = require('express').Router();
 var pg = require('pg');
-
 var config = {
     database: 'rho'
 };
-
 var pool = new pg.Pool(config);
 
 router.get('/', function(req, res) {
@@ -21,14 +19,12 @@ router.get('/', function(req, res) {
                     res.sendStatus(500);
                     return;
                 }
-
                 console.log('Got rows from the DB:', result.rows);
                 res.send(result.rows);
             });
         } finally {
             done();
         }
-
     });
 });
 
@@ -56,11 +52,9 @@ router.post('/', function(req, res) {
     });
 });
 
-
 router.put('/:id', function(req, res) {
     var id = req.params.id;
     var task_status = req.body.task_status;
-
     pool.connect(function(err, client, done) {
         try {
             if (err) {
@@ -85,7 +79,6 @@ router.put('/:id', function(req, res) {
 
 router.delete('/:id', function(req, res) {
     var id = req.params.id;
-
     pool.connect(function(err, client, done) {
         try {
             if (err) {
@@ -93,7 +86,6 @@ router.delete('/:id', function(req, res) {
                 res.sendStatus(500);
                 return;
             }
-
             client.query('DELETE FROM tasks WHERE id=$1;', [id], function(err) {
                 if (err) {
                     console.log('Error querying the DB', err);
@@ -107,6 +99,5 @@ router.delete('/:id', function(req, res) {
         }
     });
 });
-
 
 module.exports = router;
