@@ -1,3 +1,7 @@
+.finished {
+  text-decoration: line-through;
+}
+
 p {
   display: inline-block;
 
